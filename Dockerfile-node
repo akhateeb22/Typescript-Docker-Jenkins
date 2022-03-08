@@ -8,8 +8,9 @@ RUN npm run build
 
 FROM node:14-alpine3.10 as js-runner
 WORKDIR /app
-COPY --from=ts-compiler /app/package*.json ./
-COPY --from=ts-compiler /app/dist ./
+COPY --from=ts-compiler /app/package*.json /app/
+COPY --from=ts-compiler /app/dist /app/dist
 RUN npm install --only=production
+
 EXPOSE 5100
 CMD npm start
